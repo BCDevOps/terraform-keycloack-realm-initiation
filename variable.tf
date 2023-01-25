@@ -1,5 +1,6 @@
 variable "kc_base_url" {
-  description = "Base URL for Keycloak"
+  default = "https://dev.loginproxy.gov.bc.ca"
+  description = "Base URL for Keycloak example: "
 }
 
 variable "kc_realm" {
@@ -19,3 +20,15 @@ variable "kc_terraform_auth_password" {
 variable "cloudfront_auth_url" {
   description = "Authentication portal Cloudfront url"
 }
+
+variable "client_id" {
+  description = "Client id for the IDP OIDC Configuration, this is given from the OIDC integration request"
+}
+
+
+variable "client_secret" {
+  description = "Client secret for the IDP OIDC Configuration, this is given from the OIDC integration request"
+}
+
+
+
