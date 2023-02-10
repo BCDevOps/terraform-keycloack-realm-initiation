@@ -86,61 +86,6 @@ resource "keycloak_custom_identity_provider_mapper" "new_idir_idir_guid" {
   }
 }
 
-#####################################################
-## The doc says those mapper are mapped by default ##
-#####################################################
-
-# resource "keycloak_custom_identity_provider_mapper" "new_idir_username" {
-#   realm                    = data.keycloak_realm.realm.id
-#   name                     = "username"
-#   identity_provider_alias  = keycloak_oidc_identity_provider.idir_identity_provider.alias
-#   identity_provider_mapper = "%s-oidc-username-idp-mapper"
-
-#   extra_config = {
-#     syncMode = "INHERIT"
-#     Template = "$${CLAIM.preferred_username}@$${ALIAS}"
-#   }
-# }
-
-# resource "keycloak_custom_identity_provider_mapper" "new_idir_firstName" {
-#   realm                    = data.keycloak_realm.realm.id
-#   name                     = "firstName"
-#   identity_provider_alias  = keycloak_oidc_identity_provider.idir_identity_provider.alias
-#   identity_provider_mapper = "%s-oidc-user-attribute-idp-mapper"
-
-#   extra_config = {
-#     syncMode      = "INHERIT"
-#     Claim         = "firstName"
-#     UserAttribute = "firstName"
-#   }
-# }
-
-# resource "keycloak_custom_identity_provider_mapper" "new_idir_lastname" {
-#   realm                    = data.keycloak_realm.realm.id
-#   name                     = "lastName"
-#   identity_provider_alias  = keycloak_oidc_identity_provider.idir_identity_provider.alias
-#   identity_provider_mapper = "%s-oidc-user-attribute-idp-mapper"
-
-#   extra_config = {
-#     syncMode      = "INHERIT"
-#     Claim         = "lastName"
-#     UserAttribute = "lastName"
-#   }
-# }
-
-# resource "keycloak_custom_identity_provider_mapper" "new_idir_email" {
-#   realm                    = data.keycloak_realm.realm.id
-#   name                     = "email"
-#   identity_provider_alias  = keycloak_oidc_identity_provider.idir_identity_provider.alias
-#   identity_provider_mapper = "%s-oidc-user-attribute-idp-mapper"
-
-#   extra_config = {
-#     syncMode      = "INHERIT"
-#     Claim         = "email"
-#     UserAttribute = "email"
-#   }
-# }
-
 ############
 ## client ## 
 ############
