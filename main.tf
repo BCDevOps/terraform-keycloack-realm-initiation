@@ -116,6 +116,11 @@ resource "keycloak_saml_client" "amazon" {
   idp_initiated_sso_url_name = "amazon-aws"
 
   assertion_consumer_post_url = var.cloudfront_auth_url
+  full_scope_allowed = false
+
+  extra_config = {
+    "saml.assertion.lifespan" = 300
+  }
 }
 
 resource "keycloak_generic_client_protocol_mapper" "amazon_mapper_session_name" {
@@ -123,9 +128,9 @@ resource "keycloak_generic_client_protocol_mapper" "amazon_mapper_session_name" 
   client_id       = keycloak_saml_client.amazon.id
   protocol        = "saml"
   name            = "Session Name"
-  protocol_mapper = "saml-hardcode-attribute-mapper"
+  protocol_mapper = "saml-user-property-mapper"
   config = {
-    "attribute.value"      = "username"
+    "user.attribute"      = "username"
     "friendly.name"        = "Session Name"
     "attribute.nameformat" = "Basic"
     "attribute.name"       = "https://aws.amazon.com/SAML/Attributes/RoleSessionName"
@@ -136,7 +141,7 @@ resource "keycloak_generic_client_protocol_mapper" "amazon_mapper_session_role" 
   realm_id        = data.keycloak_realm.realm.id
   client_id       = keycloak_saml_client.amazon.id
   protocol        = "saml"
-  name            = "Session Role"
+  name            = "https://aws.amazon.com/SAML/Attributes/Role"
   protocol_mapper = "saml-role-list-mapper"
   config = {
     "single"               = true
