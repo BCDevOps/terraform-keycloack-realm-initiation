@@ -1,3 +1,11 @@
+variable "kc_terraform_auth_client_id" {
+  description = "Id of client used to connect to keycloack"
+}
+
+variable "kc_terraform_auth_client_secret" {
+  description = "secret of client used to connect to keycloack"
+}
+
 variable "kc_base_url" {
   description = "Base URL for Keycloak example: "
 }
