@@ -24,8 +24,6 @@ Once the request is fulfilled, the `client_id` and `client_secret` will be provi
     - In the `user in role` tab click on the username link
     - In the `role mapping` tab click on `client role` then enter in the field "realm" and select: `realm-management`
     - Now form the available role list select:
-        - manage-realms
-        - manage-identity-provider
-        - manage-client
+        - realms-admin
 6. Terraforn can now be executed with this command:
     - `terraform plan -var "kc_terraform_auth_password=<Secret>" -var "kc_base_url=<keycloack_realm_url>" -var "cloudfront_auth_url=<cloudfront_url>" -var "client_id=<client_id>" -var "client_secret=<client_secret>"`

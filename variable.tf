@@ -1,5 +1,4 @@
 variable "kc_base_url" {
-  default = "https://dev.loginproxy.gov.bc.ca"
   description = "Base URL for Keycloak example: "
 }
 
@@ -8,13 +7,8 @@ variable "kc_realm" {
   description = "realm name for Keycloak"
 }
 
-variable "kc_terraform_auth_client_id" {
-  default = "terraform"
-  description = "Keycloal progamatic user name"
-}
-
-variable "kc_terraform_auth_password" {
-  description = "Keycloal progamatic password"
+variable "saml_client_display_name" {
+  description = "Displayed name on the saml AWS client login page"
 }
 
 variable "cloudfront_auth_url" {

@@ -1,10 +1,3 @@
-provider "keycloak" {
-  client_id     = var.kc_terraform_auth_client_id
-  client_secret = var.kc_terraform_auth_password
-  url           = var.kc_base_url
-  realm         = var.kc_realm
-}
-
 # Get Unique ID in keycloak
 data "keycloak_realm" "realm" {
   realm = var.kc_realm
@@ -18,7 +11,7 @@ resource "keycloak_oidc_identity_provider" "idir_identity_provider" {
   realm                         = data.keycloak_realm.realm.id
   provider_id                   = "oidc"
   alias                         = "azureidir"
-  display_name                  = "New IDIR"
+  display_name                  = "Azure AD OIDC"
   enabled                       = true
   store_token                   = false
   first_broker_login_flow_alias = "first broker login"
@@ -93,7 +86,7 @@ resource "keycloak_custom_identity_provider_mapper" "new_idir_idir_guid" {
 resource "keycloak_saml_client" "amazon" {
   realm_id  = data.keycloak_realm.realm.id
   client_id = "urn:amazon:webservices"
-  name      = "AWS LZ0 SAML Client"
+  name      = var.saml_client_display_name
 
   sign_documents          = true
   sign_assertions         = true
