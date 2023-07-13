@@ -7,13 +7,6 @@ data "keycloak_realm" "realm" {
 ## IDIR IDP ##
 ##############
 
-provider "keycloak" {
-  client_id     = var.kc_terraform_auth_client_id
-  client_secret = var.kc_terraform_auth_client_secret
-  url           = var.kc_base_url
-  realm         = var.kc_realm
-}
-
 resource "keycloak_oidc_identity_provider" "idir_identity_provider" {
   realm                         = data.keycloak_realm.realm.id
   provider_id                   = "oidc"
