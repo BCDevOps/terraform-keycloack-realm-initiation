@@ -11,7 +11,7 @@ variable "kc_base_url" {
 }
 
 variable "kc_realm" {
-  default = "public-cloud"
+  default     = "public-cloud"
   description = "realm name for Keycloak"
 }
 
@@ -32,5 +32,10 @@ variable "client_secret" {
   description = "Client secret for the IDP OIDC Configuration, this is given from the OIDC integration request"
 }
 
+variable "role_names" {
+  description = "List of Keycloak role names"
+  type        = list(string)
+  default     = ["manage-users", "query-groups"]
+}
 
 
