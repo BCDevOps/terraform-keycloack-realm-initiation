@@ -157,3 +157,46 @@ resource "keycloak_generic_client_protocol_mapper" "amazon_mapper_session_durati
     "attribute.name"       = "https://aws.amazon.com/SAML/Attributes/SessionDuration"
   }
 }
+
+resource "keycloak_openid_client" "user_managemennt_client" {
+  client_id   = "user_management"
+  name        = "user_management"
+  realm_id    = data.keycloak_realm.realm.id
+  description = "Client with Scoped perms to manage users through registry"
+  enabled = true
+  full_scope_allowed = false
+  standard_flow_enabled    = false
+  service_accounts_enabled = true
+  backchannel_logout_session_required  = true
+  access_type = "CONFIDENTIAL"
+}
+
+data "keycloak_openid_client" "realm_management" {
+  realm_id  = data.keycloak_realm.realm.id
+  client_id = "realm-management"
+}
+
+data "keycloak_role" "roles" {
+  for_each = toset(var.role_names)
+
+  realm_id  = data.keycloak_realm.realm.id
+  client_id = data.keycloak_openid_client.realm_management.id
+  name      = each.value
+}
+
+
+resource "keycloak_role" "user_management_roles" {
+  name      = "user_management_roles"
+  realm_id  = data.keycloak_realm.realm.id
+  client_id = keycloak_openid_client.user_managemennt_client.id
+
+  composite_roles = [for role in var.role_names : data.keycloak_role.roles[role].id]
+}
+
+
+resource "keycloak_openid_client_service_account_role" "user_managemennt_service_account_role" {
+  realm_id                = data.keycloak_realm.realm.id
+  service_account_user_id = keycloak_openid_client.user_managemennt_client.service_account_user_id
+  client_id               = keycloak_openid_client.user_managemennt_client.id
+  role                    = keycloak_role.user_management_roles.name
+}
