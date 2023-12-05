@@ -109,7 +109,7 @@ resource "keycloak_saml_client" "amazon" {
   idp_initiated_sso_url_name = "amazon-aws"
 
   assertion_consumer_post_url = var.cloudfront_auth_url
-  full_scope_allowed = false
+  full_scope_allowed          = false
 
   extra_config = {
     "saml.assertion.lifespan" = 300
@@ -123,7 +123,7 @@ resource "keycloak_generic_client_protocol_mapper" "amazon_mapper_session_name" 
   name            = "Session Name"
   protocol_mapper = "saml-user-property-mapper"
   config = {
-    "user.attribute"      = "username"
+    "user.attribute"       = "username"
     "friendly.name"        = "Session Name"
     "attribute.nameformat" = "Basic"
     "attribute.name"       = "https://aws.amazon.com/SAML/Attributes/RoleSessionName"
@@ -159,16 +159,16 @@ resource "keycloak_generic_client_protocol_mapper" "amazon_mapper_session_durati
 }
 
 resource "keycloak_openid_client" "user_managemennt_client" {
-  client_id   = "user_management"
-  name        = "user_management"
-  realm_id    = data.keycloak_realm.realm.id
-  description = "Client with Scoped perms to manage users through registry"
-  enabled = true
-  full_scope_allowed = false
-  standard_flow_enabled    = false
-  service_accounts_enabled = true
-  backchannel_logout_session_required  = true
-  access_type = "CONFIDENTIAL"
+  client_id                           = "user_management"
+  name                                = "user_management"
+  realm_id                            = data.keycloak_realm.realm.id
+  description                         = "Client with Scoped perms to manage users through registry"
+  enabled                             = true
+  full_scope_allowed                  = false
+  standard_flow_enabled               = false
+  service_accounts_enabled            = true
+  backchannel_logout_session_required = true
+  access_type                         = "CONFIDENTIAL"
 }
 
 data "keycloak_openid_client" "realm_management" {

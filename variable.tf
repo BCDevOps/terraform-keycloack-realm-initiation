@@ -11,7 +11,7 @@ variable "kc_base_url" {
 }
 
 variable "kc_realm" {
-  default = "public-cloud"
+  default     = "public-cloud"
   description = "realm name for Keycloak"
 }
 
