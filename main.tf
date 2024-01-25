@@ -11,7 +11,7 @@ resource "keycloak_oidc_identity_provider" "idir_identity_provider" {
   realm                         = data.keycloak_realm.realm.id
   provider_id                   = "oidc"
   alias                         = "azureidir"
-  display_name                  = "Azure AD OIDC"
+  display_name                  = "IDIR - MFA"
   enabled                       = true
   store_token                   = false
   first_broker_login_flow_alias = "first broker login"
